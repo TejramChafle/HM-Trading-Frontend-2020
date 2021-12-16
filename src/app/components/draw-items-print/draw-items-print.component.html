@@ -1,0 +1,33 @@
+<div class="print-page" id="print-page">
+    <print-header></print-header><br>
+    <div class="row">
+        <div class="col col-lg-3 col-md-3 col-sm-3">
+            <strong>ITEMS</strong>
+        </div>
+    </div>
+    <br>
+    <div id="item_table">
+        <table class="table table-bordered table-hover table-striped" >
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Exchangeable</th>
+                <th class="hmtrading-text-right">Card Count</th>
+                <th class="hmtrading-text-right">Draw Count</th>
+                <th class="hmtrading-text-right">Total</th>
+            </tr>
+            <tr *ngFor="let item of items; let index = index;">
+                <td>{{index + 1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.is_exchangeable == 1 ? 'Yes' : 'No'}}</td>
+                <td class="text-center">{{item.card_item_total}}</td>
+                <td class="text-center">{{item.draw_item_total}}</td>
+                <td class="text-center">{{item.total}}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <print-footer></print-footer>
+</div>

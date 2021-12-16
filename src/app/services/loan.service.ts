@@ -27,8 +27,8 @@ export class LoanService {
     // get the all the loan customers from sever
     public getLoanCustomers(params): Observable<any> {
         return this._http.post(baseUrl + 'Customer/get_loan_customers', params, options).pipe(
-            delay(3000),
-            retry(3),
+            // delay(5000),
+            // retry(3),
             map((response) => {
                 return response;
             }),

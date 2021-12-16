@@ -187,6 +187,11 @@ export class CustomersComponent implements OnInit {
         params.page = 1;
         params.limit = this.limit;
         params.offset = this.limit * (parseInt(params.page, 10) - 1);
+
+        if (this.agent) {
+            params.agent_id = this.agent.customer_id
+        }
+
         console.log(params);
         console.log('------------------------------------------------');
         // this.getCustomers(params);

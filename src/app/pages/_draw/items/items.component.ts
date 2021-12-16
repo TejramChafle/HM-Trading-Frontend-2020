@@ -6,6 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ItemComponent } from 'src/app/forms/item/item.component';
 import { AppService } from 'src/app/app.service';
 import { ConfirmComponent } from 'src/app/components/confirm/confirm.component';
+import { DrawItemsPrintComponent } from 'src/app/components/draw-items-print/draw-items-print.component';
 
 @Component({
     selector: 'app-items',
@@ -136,5 +137,11 @@ export class ItemsComponent implements OnInit {
                 console.log(error);
             }
         );
+    }
+
+    print() {
+        localStorage.setItem('printContent', JSON.stringify(this.items));
+        const page = new DrawItemsPrintComponent(this._appService, this._modalService);
+        page.open(true);
     }
 }
