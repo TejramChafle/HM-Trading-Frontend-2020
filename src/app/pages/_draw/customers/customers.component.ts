@@ -22,13 +22,15 @@ export class CustomersComponent implements OnInit {
     printing: Boolean = false;
     agent: any = {};
     totalCustomers: Number;
-
+    selectCustomer: boolean;
     pagination: any = {};
     limit: number = limit;
 
     // Router
     sub
     id
+    // select all records flag
+    selectAll: Boolean = false;
 
     constructor(
         private _drawService: DrawService,
@@ -36,7 +38,7 @@ export class CustomersComponent implements OnInit {
         public _appService: AppService,
         private router: Router,
         private activatedRoute: ActivatedRoute) {
-        console.log('AGENTS:', this._appService.agents);
+        // console.log('AGENTS:', this._appService.agents);
         // Get the agents from server
         if (!this._appService.agents) {
             this._drawService.agents();
@@ -45,17 +47,17 @@ export class CustomersComponent implements OnInit {
 
     ngOnInit() {
         this.sub = this.activatedRoute.params.subscribe(params => {
-            console.log(params);
+            // console.log(params);
             this.agent = params['id'] ? JSON.parse(params['id']) : null;
-            console.log(this.agent);
+            // console.log(this.agent);
             if (this.agent) {
-                console.log('Get all the customers of agent id : ' + this.agent.customer_id);
+                // console.log('Get all the customers of agent id : ' + this.agent.customer_id);
                 // this.getCustomers({agent_id : this.id});
                 // this.printing = true;
                 this.getInstallments({ agent_id: this.agent.customer_id, limit: this.limit, offset: 0, page: 1 });
                 // this.getItems();
             } else {
-                console.log('Get all the customers');
+                // console.log('Get all the customers');
                 this.getInstallments({ limit: this.limit, offset: 0, page: 1 });
                 // this.getCustomers({});
                 // this.getItems();
@@ -68,7 +70,7 @@ export class CustomersComponent implements OnInit {
         this._drawService.getCustomers(params).subscribe(
             data => {
                 // this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.customers = data.records;
                 this.pagination = data.pagination;
                 this.getItems();
@@ -76,71 +78,68 @@ export class CustomersComponent implements OnInit {
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the customers information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('CUSTOMERS');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('CUSTOMERS');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
     getInstallments(params) {
         this.loading = true;
-        this._drawService.getInstallments(params).subscribe(
-            data => {
-                console.log(data);
-                data.records.forEach((cust) => {
-                    if (cust.item) {
-                        cust.total = 0;
-                        cust.totalInstPrice = 1820;
-                        cust.installment.forEach(element => {
-                            if (element.amount) {
-                                cust.total += parseInt(element.amount, 10);
-                            }
-                        });
-                        cust.balance = parseInt(cust.totalInstPrice, 10) - parseInt(cust.total, 10);
-                    }
-                });
-
-
-                this.customers = data.records;
-                console.log('-------------------------------------------------------');
-                console.log('MODIFIED CUSTOMERS');
-                console.log(this.customers);
-                console.log('-------------------------------------------------------');
-                this.getItems();
-                this.loading = false;
-
-                // this.agent = this.customers[0].agent;
-                this.totalCustomers = this.customers.length;
-                this.pagination = data.pagination;
-            },
-            error => {
-                this.loading = false;
-                console.log(error);
-                this._appService.notify('Oops! Unable to get installment information.', 'Error!');
+        this._drawService.getInstallments(params).subscribe(data => {
+            // console.log(data);
+            data.records.forEach((cust) => {
+                if (cust.item) {
+                    cust.total = 0;
+                    cust.totalInstPrice = 1820;
+                    cust.installment.forEach(element => {
+                        if (element.amount) {
+                            cust.total += parseInt(element.amount, 10);
+                        }
+                    });
+                    cust.balance = parseInt(cust.totalInstPrice, 10) - parseInt(cust.total, 10);
+                }
             });
+
+            this.customers = data.records;
+            // console.log('-------------------------------------------------------');
+            // console.log('MODIFIED CUSTOMERS');
+            // console.log(this.customers);
+            // console.log('-------------------------------------------------------');
+            this.getItems();
+            this.loading = false;
+
+            // this.agent = this.customers[0].agent;
+            this.totalCustomers = this.customers.length;
+            this.pagination = data.pagination;
+        },
+        error => {
+            this.loading = false;
+            // console.log(error);
+            this._appService.notify('Oops! Unable to get installment information.', 'Error!');
+        });
     }
 
 
     getItems() {
-
         // Don't load the items already loaded
         if (this._appService.items) {
             return false;
         }
-
         // this.loading = true;
-        this._drawService.getItems({ limit: 100, offset: 0, page: 1 }).subscribe(
-            data => {
-                this.loading = false;
-                console.log(data);
-                this._appService.items = data.records;
-            },
-            error => {
-                this.loading = false;
-                this._appService.notify('Oops! Unable to get items information.', 'Error!');
-                console.log(error);
-            });
+        this._drawService.getItems({ limit: 100, offset: 0, page: 1 }).subscribe(data => {
+            this.loading = false;
+            // console.log(data);
+            this._appService.items = data.records;
+            // Save items in local storage
+            localStorage.setItem('items', JSON.stringify(this._appService.items));
+        },
+        error => {
+            this.loading = false;
+            this._appService.notify('Oops! Unable to get items information.', 'Error!');
+            // console.log(error);
+        });
     }
 
     editCustomer(id) {
@@ -173,8 +172,8 @@ export class CustomersComponent implements OnInit {
     }
 
     searchCustomer() {
-        console.log('------------------------------------------------');
-        console.log('SEARCH FORM DATA');
+        // console.log('------------------------------------------------');
+        // console.log('SEARCH FORM DATA');
 
         const params: any = {};
         params.name = this.data.name && this.data.name.length ? this.data.name : undefined;
@@ -192,8 +191,8 @@ export class CustomersComponent implements OnInit {
             params.agent_id = this.agent.customer_id
         }
 
-        console.log(params);
-        console.log('------------------------------------------------');
+        // console.log(params);
+        // console.log('------------------------------------------------');
         // this.getCustomers(params);
         this.getInstallments(params);
     }
@@ -209,7 +208,7 @@ export class CustomersComponent implements OnInit {
 
 
     pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params: any = {};
         params.limit = this.limit;
         params.offset = this.limit * (parseInt(page, 10) - 1);
@@ -233,19 +232,73 @@ export class CustomersComponent implements OnInit {
     }
 
     addCustomer(customer?: any) {
-        console.log('this._appService.agents : ', this._appService.agents);
+        // console.log('this._appService.agents : ', this._appService.agents);
         const modalRef = this._modalService.open(CustomerComponent, { size: 'lg' });
         modalRef.componentInstance.formdata = customer || {};
         modalRef.componentInstance.agents = this._appService.agents || [];
         modalRef.componentInstance.items = this._appService.items || [];
         modalRef.result.then((data) => {
-            console.log('_modalService data : ', data);
+            // console.log('_modalService data : ', data);
             if (data) {
                 this.ngOnInit();
             }
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             // this._appService.notify('Failed to perform operation.', 'Error!');
+        });
+    }
+
+    markDelivery() {
+        this.selectCustomer = true;
+    }
+    cancelDelivery() {
+        this.customers.forEach((customer) => {
+            if (customer.checked) {
+                delete customer.checked;
+            }
+        });
+        this.selectCustomer = false;
+    }
+
+    // Select all the customers
+    onChangeSelection() {
+        if (this.selectAll) {
+            this.customers.forEach((customer) => {
+                if (customer.is_item_delivered === '0') {
+                    customer.checked = true;
+                }
+            });
+        } else {
+            this.customers.forEach((customer) => {
+                customer.checked = false;
+            });
+        }
+        this.selectCustomer = true;
+    }
+
+    // update_customer_item_deliveries
+    updateDelivery() {
+        let customerIds = [];
+        this.customers.forEach((customer) => {
+            if (customer.checked) {
+                customerIds.push(customer.customer_id);
+            }
+        });
+        this.loading = true;
+        this._drawService.updateCustomerItemDeliveries(customerIds).subscribe(data => {
+            this.loading = false;
+            console.log(data);
+            if (data) {
+                this._appService.notify('Item deliveries updated successfully.', 'Success!');
+                this.ngOnInit();
+                this.cancelDelivery();
+            } else {
+                this._appService.notify('Oops! Unable to update item deliveries.', 'Error!');
+            }
+        }, error => {
+            this.loading = false;
+            this._appService.notify('Oops! Unable to update item deliveries.', 'Error!');
+            console.log(error);
         });
     }
 }

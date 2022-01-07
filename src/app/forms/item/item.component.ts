@@ -30,10 +30,10 @@ export class ItemComponent implements OnInit {
         } else {
             this.formdata.is_exchangeable = 0;
         }
-        console.log('-----------------------------------------------------------------');
-        console.log('FORM DATA');
-        console.log(this.formdata);
-        console.log('-----------------------------------------------------------------');
+        // console.log('-----------------------------------------------------------------');
+        // console.log('FORM DATA');
+        // console.log(this.formdata);
+        // console.log('-----------------------------------------------------------------');
 
         this.loading = true;
         this._drawService.addItem(this.formdata).subscribe(
@@ -42,11 +42,11 @@ export class ItemComponent implements OnInit {
                 this._appService.notify('Item has been added successfully', 'Success');
                 // this.router.navigate(['items']);
                 this._activeModal.close(true);
-                console.log(data);
+                // console.log(data);
             },
             error => {
                 this.loading = false;
-                console.log(error._body);
+                // console.log(error._body);
                 this._appService.notify('Unable to process your request. Something went wrong!', 'Error!');
             });
     }

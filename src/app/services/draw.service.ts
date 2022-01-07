@@ -24,19 +24,19 @@ export class DrawService {
 
     // tslint:disable-next-line:variable-name
     constructor(private _http: HttpClient, private _appService: AppService) {
-        console.log('saved installments', JSON.parse(localStorage.getItem('schemeInstallments')));
+        // console.log('saved installments', JSON.parse(localStorage.getItem('schemeInstallments')));
     }
 
     // Get the agents in silent/background
     agents() {
         this.getCustomers({ is_agent_too: 1, limit: 1000, offset: 0, page: 1 }).subscribe(
             data => {
-                console.log(data);
+                // console.log(data);
                 this._appService.agents = data.records;
             },
             error => {
                 this._appService.notify('Oops! Unable to get the agents information.', 'Error!');
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -450,6 +450,19 @@ export class DrawService {
     ----------------------------------------------------------------------------------------*/
     public sendNotification(params): Observable<any> {
         return this._http.post(baseUrl + 'Installments/send_notification_to_pending_installments', params, options).pipe(
+            // retry(3),
+            map((response) => {
+                return response;
+            }),
+            catchError(error => {
+                this._appService.handleError(error);
+                return throwError(error);
+            })
+        );
+    }
+
+    public updateCustomerItemDeliveries(customerIds): Observable<any> {
+        return this._http.post(baseUrl + 'Customer/update_customer_item_deliveries', customerIds, options).pipe(
             // retry(3),
             map((response) => {
                 return response;

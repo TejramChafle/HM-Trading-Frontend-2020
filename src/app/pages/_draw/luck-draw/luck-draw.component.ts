@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DrawService } from 'src/app/services/draw.service';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
+import { DrawLuckyCustomersPrintComponent } from 'src/app/components/draw-lucky-customers-print/draw-lucky-customers-print.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-luck-draw',
@@ -23,7 +25,8 @@ export class LuckDrawComponent implements OnInit {
     constructor(
         public _drawService: DrawService,
         public _appService: AppService,
-        private router: Router) {
+        private router: Router,
+        private _modalService: NgbModal) {
         this.earlierCustomers = [];
         this.eligibleCustomers = [];
         this.monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -50,25 +53,25 @@ export class LuckDrawComponent implements OnInit {
         this._drawService.luckDraw(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.eligibleCustomers = data;
 
                 if (this.eligibleCustomers.length) {
                     this.selectLuckyCustomer();
                 }
 
-                console.log('--------------------------------------------------------');
-                console.log('LUCKY DRAW RESPONSE');
-                console.log(data);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('LUCKY DRAW RESPONSE');
+                // console.log(data);
+                // console.log('--------------------------------------------------------');
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to process your request.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('FAILED TO SEND SMS');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('FAILED TO SEND SMS');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
@@ -81,10 +84,10 @@ export class LuckDrawComponent implements OnInit {
             // Remove the cutomer from remaining non-selected lucky customers
             this.eligibleCustomers.splice(this.customer.index, 1);
 
-            console.log('--------------------------------------------------------');
-            console.log('EARLIER CUSTOMERS IN DRAW');
-            console.log(this.earlierCustomers);
-            console.log('--------------------------------------------------------');
+            // console.log('--------------------------------------------------------');
+            // console.log('EARLIER CUSTOMERS IN DRAW');
+            // console.log(this.earlierCustomers);
+            // console.log('--------------------------------------------------------');
 
             // Select lucky customer again from remaining non-selected lucky customers
             this.selectLuckyCustomer();
@@ -112,7 +115,7 @@ export class LuckDrawComponent implements OnInit {
         this._drawService.getItems({ limit: 100, offset: 0, page: 1 }).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.items = [];
                 data.records.forEach(element => {
                     if (element.status === 'Available') {
@@ -125,7 +128,7 @@ export class LuckDrawComponent implements OnInit {
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get items information.', 'Error!');
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -156,16 +159,16 @@ export class LuckDrawComponent implements OnInit {
             }
         }
 
-        console.log('-----------------------------------------------------');
-        console.log('Save lucky customer data');
-        console.log(params);
-        console.log('-----------------------------------------------------');
+        // console.log('-----------------------------------------------------');
+        // console.log('Save lucky customer data');
+        // console.log(params);
+        // console.log('-----------------------------------------------------');
 
         this.loading = true;
         this._drawService.saveLuckyCustomer(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(JSON.parse(data));
+                // console.log(JSON.parse(data));
                 this._appService.notify('Lucky draw is completed and the selected item has been assigned to lucky customer.', 'Success!');
                 // this.router.navigate(['customers']);
                 this.luckyCustomers();
@@ -177,7 +180,7 @@ export class LuckDrawComponent implements OnInit {
             error => {
                 this._appService.notify('Oops! Unable to process your request.', 'Error!');
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -187,30 +190,28 @@ export class LuckDrawComponent implements OnInit {
         this._drawService.luckyCustomers().subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.customers = data;
             },
             error => {
                 this._appService.notify('Oops! Unable to get customers information.', 'Error!');
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
             });
     }
 
 
 
     print() {
-        let popupWin = window.open('_blank');
-        let printContents = document.getElementById('lucky_draw_table').innerHTML;
-        popupWin.document.open();
-        popupWin.document.write(this._appService.printContentHeader + printContents + this._appService.printContentFooter);
-        popupWin.document.close();
+        localStorage.setItem('printContent', JSON.stringify(this.customers));
+        const page = new DrawLuckyCustomersPrintComponent(this._appService, this._modalService);
+        page.open(true);
     }
 
 
     selectLuckyCustomer() {
         let rand = Math.floor((Math.random() * (this.eligibleCustomers.length - 1)) + 1);
-        console.log('selected index :' + rand);
+        // console.log('selected index :' + rand);
         this.customer = this.eligibleCustomers[rand];
         // Set the index position of the lucky customer
         this.customer.index = rand;

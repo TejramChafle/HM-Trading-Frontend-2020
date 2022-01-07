@@ -41,8 +41,8 @@ export class CustomerInstallmentPrintComponent implements OnInit, AfterViewInit 
         this.totalInWords = this._appService.inWords(this.total);
         this.totalInWords = 'Rupees ' + this._appService.capitalizeFirstLetter(this.totalInWords);
 
-        console.log(this.paidInstallments);
-        console.log(this.customer);
+        // console.log(this.paidInstallments);
+        // console.log(this.customer);
 
         let today = new Date();
         this.billingDate = this._appService.GetFormattedDate(today);
@@ -71,7 +71,12 @@ export class CustomerInstallmentPrintComponent implements OnInit, AfterViewInit 
 
         popupWin.document.open();
         popupWin.document.write(this._appService.printContentHeader + printContents + this._appService.printContentFooter);
-        popupWin.document.close();
+        // Do not close window for mobile device and give user a chance to print manually
+        if (this._appService.innerWidth > 768) {
+            popupWin.document.close();
+        } else {
+            popupWin.document.title = 'hm-trading-customer-installments';
+        }
     }
 
 }

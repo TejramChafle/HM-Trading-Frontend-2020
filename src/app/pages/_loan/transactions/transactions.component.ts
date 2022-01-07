@@ -55,7 +55,7 @@ export class TransactionsComponent implements OnInit {
         this._loanService.getTransactions(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.pagination = data.pagination;
                 if (this.id) {
                     this.payments = data.transactions;
@@ -68,17 +68,17 @@ export class TransactionsComponent implements OnInit {
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the transactions information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('ERROR IN TRANSACTIONS SERVICE RESPONSE');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('ERROR IN TRANSACTIONS SERVICE RESPONSE');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
 
     searchTransactions() {
-        console.log('------------------------------------------------');
-        console.log('SEARCH FORM DATA');
+        // console.log('------------------------------------------------');
+        // console.log('SEARCH FORM DATA');
 
         const params: any = {};
         params.transaction_id = this.data.transaction_id && this.data.transaction_id.length ? this.data.transaction_id : undefined;
@@ -93,22 +93,22 @@ export class TransactionsComponent implements OnInit {
         params.offset = 0;
         params.page = 1;
 
-        console.log(params);
-        console.log('------------------------------------------------');
+        // console.log(params);
+        // console.log('------------------------------------------------');
         this.getTransactions(params);
     }
 
 
     print(params, isPrint: Boolean) {
 
-        console.log('---------------------------------------------------------');
-        console.log('PRINT RECEIPT');
-        console.log(params);
-        console.log(params.customer);
-        console.log(params.account);
-        console.log(this.customer);
-        console.log(this.account);
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
+        // console.log('PRINT RECEIPT');
+        // console.log(params);
+        // console.log(params.customer);
+        // console.log(params.account);
+        // console.log(this.customer);
+        // console.log(this.account);
+        // console.log('---------------------------------------------------------');
 
 
         if (this.id) {
@@ -128,7 +128,7 @@ export class TransactionsComponent implements OnInit {
     }
 
     pageChange(page) {
-        console.log(page, this.data.type);
+        // console.log(page, this.data.type);
         const params: any = {};
         params.limit    = this.limit;
         params.offset   = this.limit * (parseInt(page, 10) - 1);

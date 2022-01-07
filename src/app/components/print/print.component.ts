@@ -31,7 +31,7 @@ export class PrintComponent implements OnInit, AfterViewInit {
         this.count = localStorage.getItem('count');
         // this.totalPaid = localStorage.getItem('totalPaid');
         this.receiptNo = localStorage.getItem('receipt');
-        console.log(this.paidInstallments);
+        // console.log(this.paidInstallments);
 
         localStorage.getItem('customer') ? this.customer = JSON.parse(localStorage.getItem('customer')) : false;
         this.agent = JSON.parse(localStorage.getItem('agent'));
@@ -73,10 +73,10 @@ export class PrintComponent implements OnInit, AfterViewInit {
 
         this.totalInWords = this._appService.inWords(this.totalPaid);
         this.totalInWords = 'Rupees ' + this._appService.capitalizeFirstLetter(this.totalInWords);
-        console.log('---------------------------------------------------------------------');
-        console.log('Total Paid in numbers : ' + this.totalPaid);
-        console.log(this.totalInWords);
-        console.log('---------------------------------------------------------------------');
+        // console.log('---------------------------------------------------------------------');
+        // console.log('Total Paid in numbers : ' + this.totalPaid);
+        // console.log(this.totalInWords);
+        // console.log('---------------------------------------------------------------------');
     }
 
     ngAfterViewInit() {
@@ -95,16 +95,6 @@ export class PrintComponent implements OnInit, AfterViewInit {
         }
     }
 
-    /* private getDismissReason(reason: any): string {
-        if (reason === ModalDismissReasons.ESC) {
-            return 'by pressing ESC';
-        } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-            return 'by clicking on a backdrop';
-        } else {
-            return `with: ${reason}`;
-        }
-    } */
-
     print() {
         let printContents, popupWin;
         popupWin = window.open('_blank');
@@ -112,6 +102,11 @@ export class PrintComponent implements OnInit, AfterViewInit {
 
         popupWin.document.open();
         popupWin.document.write(this._appService.printContentHeader + printContents + this._appService.printContentFooter);
-        popupWin.document.close();
+        // Do not close window for mobile device and give user a chance to print manually
+        if (this._appService.innerWidth > 768) {
+            popupWin.document.close();
+        } else {
+            popupWin.document.title = 'hm-trading-installments';
+        }
     }
 }

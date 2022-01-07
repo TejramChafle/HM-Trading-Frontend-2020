@@ -28,6 +28,7 @@ import { DrawAgentCustomerPrintComponent } from './components/draw-agent-custome
 import { PrintHeaderComponent } from './components/print-header/print-header.component';
 import { PrintFooterComponent } from './components/print-footer/print-footer.component';
 import { DrawItemsPrintComponent } from './components/draw-items-print/draw-items-print.component';
+import { DrawLuckyCustomersPrintComponent } from './components/draw-lucky-customers-print/draw-lucky-customers-print.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { DrawItemsPrintComponent } from './components/draw-items-print/draw-item
         DrawSchemeComponent,
         PrintHeaderComponent,
         PrintFooterComponent,
-        DrawItemsPrintComponent
+        DrawItemsPrintComponent,
+        DrawLuckyCustomersPrintComponent
     ],
     imports: [
         BrowserModule,
@@ -72,7 +74,8 @@ import { DrawItemsPrintComponent } from './components/draw-items-print/draw-item
         DrawSchemeComponent,
         PrintHeaderComponent,
         PrintFooterComponent,
-        DrawItemsPrintComponent
+        DrawItemsPrintComponent,
+        DrawLuckyCustomersPrintComponent
     ],
     providers: [NgbActiveModal],
     bootstrap: [AppComponent]

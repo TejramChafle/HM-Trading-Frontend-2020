@@ -138,6 +138,30 @@
 
                 </div>
             </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="isItemDelivered">Is Item Delivered?</label>
+                    <div class="input-group" >
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-info-sign"></span></div>
+                        <select class="form-control" id="isItemDelivered" name="isItemDelivered" [(ngModel)]="formdata.is_item_delivered" #isItemDelivered="ngModel" required>
+                            <option *ngFor="let item of statuses" value= {{item.id}}>
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !isItemDelivered.valid }">
+                    <label for="itemDeliveredOn">Item Delivered On</label>
+                    <div class="input-group" >
+                        <input type="date" class="form-control" name="itemDeliveredOn" [(ngModel)]="formdata.item_delivery_date" #itemDeliveredOn="ngModel" />
+                    </div>
+                    <div *ngIf="f.submitted && !itemDeliveredOn.valid" class="help-block">Item delivery date is required</div>
+                </div>
+            </div>
         </div>
 
         <div class="row">

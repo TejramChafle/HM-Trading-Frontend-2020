@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     login(): void {
         this.loading = true;
         this._appService.login(this.data).subscribe(res => {
-            console.log(res);
+            // console.log(res);
             this.loading = false;
             if (res) {
                 this.hasLoggedIn.emit(true);
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
                 this.isInvalid = true;
             }
         }, (error) => {
-            console.log(error);
+            // console.log(error);
             this.loading = false;
             this.isInvalid = false;
             this._appService.notify('Oops! Something went wrong. Please try again after sometime.', 'Error!');

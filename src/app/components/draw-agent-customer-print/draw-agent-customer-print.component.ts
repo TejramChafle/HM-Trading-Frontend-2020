@@ -40,8 +40,8 @@ export class DrawAgentCustomerPrintComponent implements OnInit, AfterViewInit {
         this.totalInWords = this._appService.inWords(this.total);
         this.totalInWords = 'Rupees ' + this._appService.capitalizeFirstLetter(this.totalInWords);
 
-        console.log(this.paidInstallments);
-        console.log(this.customer);
+        // console.log(this.paidInstallments);
+        // console.log(this.customer);
 
         const today = new Date();
         this.billingDate = this._appService.GetFormattedDate(today);
@@ -53,7 +53,7 @@ export class DrawAgentCustomerPrintComponent implements OnInit, AfterViewInit {
 
     open(isPrint: Boolean) {
         this.modalRef = this._modalService.open(DrawAgentCustomerPrintComponent, { centered: true, size: 'lg' });
-        if (isPrint) {
+        if (isPrint && this._appService.innerWidth > 768) {
             setTimeout(() => {
                 this.print();
                 setTimeout(() => {
@@ -70,7 +70,12 @@ export class DrawAgentCustomerPrintComponent implements OnInit, AfterViewInit {
 
         popupWin.document.open();
         popupWin.document.write(this._appService.printContentHeader + printContents + this._appService.printContentFooter);
-        popupWin.document.close();
+        // Do not close window for mobile device and give user a chance to print manually
+        if (this._appService.innerWidth > 768) {
+            popupWin.document.close();
+        } else {
+            popupWin.document.title = 'hm-trading-agent-customers';
+        }
     }
 
 }

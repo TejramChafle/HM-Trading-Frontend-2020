@@ -44,22 +44,9 @@
                 </div>
             </div> -->
 
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <!-- <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !exchangeable.valid }">
                     <label for="price">Is Exchangeable?</label>
-                    <!-- <div class="input-group" >
-                        <input type="checkbox" name="exchangeable" [(ngModel)]="formdata.is_exchangeable" #exchangeable="ngModel" />
-                        Check this box to allow for item exchange
-                    </div> -->
-                    <!-- <div class="input-group">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text">
-                                <input type="checkbox" class="form-control" name="exchangeable" [(ngModel)]="formdata.is_exchangeable" #exchangeable="ngModel" aria-label="Checkbox for following text input">
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Check this box to allow for item exchange" disabled/>
-                    </div> -->
-
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
@@ -68,6 +55,17 @@
                         </div>
                         <input type="text" class="form-control" placeholder="Check this box to allow for item exchange" disabled>
                     </div>
+                </div>
+            </div> -->
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !stock.valid }">
+                    <label for="stock">Stock</label>
+                    <div class="input-group" >
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-cutlery"></span></div>
+                        <input type="text" class="form-control" name="stock" [(ngModel)]="formdata.stock" #stock="ngModel" required />
+                    </div>
+                    <div *ngIf="f.submitted && !stock.valid" class="help-block">Item stock is required</div>
                 </div>
             </div>
 

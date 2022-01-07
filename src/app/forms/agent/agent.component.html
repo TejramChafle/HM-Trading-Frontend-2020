@@ -78,6 +78,20 @@
                     <div *ngIf="f.submitted && !agentName.valid" class="help-block">Agent name is required</div>
                 </div>
             </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !item.valid }">
+                    <label for="item">Free Item</label>
+                    <div class="input-group" >
+                        <div class="input-group-addon"><span class="glyphicon glyphicon-list"></span></div>
+                        <select class="form-control" id="item" name="item" [(ngModel)]="formdata.free_item" #item="ngModel" >
+                            <option *ngFor="let item of _appService.items" value= {{item.item_id}}>
+                                {{item.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">

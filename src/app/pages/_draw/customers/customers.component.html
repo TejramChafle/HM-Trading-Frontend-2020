@@ -9,10 +9,18 @@
                 </div>
                 <!-- Add customer -->
                 <div class="col col-lg-6 col-md-6 col-12 col-sm-12" align="right">
-                    <button type="button" class="btn btn-success" (click)="addCustomer()" >Add Customer</button>&nbsp;
-                    <span *ngIf="agent"><button type="button" class="btn btn-secondary" (click)="print()">Print</button>&nbsp;</span>
-                    <button type="submit" class="btn btn-info" (click)="search=!search">Search</button>&nbsp;
-                    <button type="submit" class="btn btn-secondary" (click)="ngOnInit()">Refresh</button>
+                    <span *ngIf="!selectCustomer">
+                        <button type="button" class="btn btn-secondary" (click)="markDelivery()">Mark Delivery</button>&nbsp;
+                        <button type="button" class="btn btn-success" (click)="addCustomer()">Add Customer</button>&nbsp;
+                        <span *ngIf="agent"><button type="button" class="btn btn-secondary" (click)="print()">Print</button>&nbsp;</span>
+                        <button type="submit" class="btn btn-info" (click)="search=!search">Search</button>&nbsp;
+                        <button type="submit" class="btn btn-secondary" (click)="ngOnInit()">Refresh</button>
+                    </span>
+                    <span *ngIf="selectCustomer">
+                        <button type="button" class="btn btn-success" (click)="updateDelivery()" >Submit</button>&nbsp;
+                        <button type="button" class="btn btn-danger" (click)="cancelDelivery()" >Cancel</button>&nbsp;
+                    </span>
+                    
                 </div>
             </div>
         </div>
@@ -111,6 +119,7 @@
                 <table class="table table-hover table-bordered table-sm table-striped" >
                     <tr>
                         <!-- <th>#</th> -->
+                        <th *ngIf="selectCustomer"><input type="checkbox" [(ngModel)]="selectAll" (change)="onChangeSelection()"></th>
                         <th>Card</th>
                         <th>Name</th>
                         <th [hidden]="printing">Agent</th>
@@ -123,11 +132,18 @@
                         <th class="hmtrading-text-right" >Balance</th>
                         <!-- <th>Is Agent?</th> -->
                         <!-- <th [hidden]="printing" >Status</th> -->
+                        <th>Item Delivered?</th>
+                        <th>Deliverey Date</th>
                         <th [hidden]="printing" colspan="3" class="hmtrading-text-center">Actions</th>
                     </tr>
 
                     <tr *ngFor="let customer of customers;">
                         <!-- <td>{{customer.customer_id}}</td> -->
+                        <td *ngIf="selectCustomer">
+                            <span *ngIf="customer.item_id && customer.is_item_delivered === '0'">
+                                <input type="checkbox" [(ngModel)]="customer.checked">
+                            </span>
+                        </td>
                         <td>{{customer.card_number}}</td>
                         <td><span [class]="customer.is_agent_too == 1 ? 'is-agent' : 'not-agent'">{{customer.name}}</span></td>
                         <td [hidden]="printing">{{customer.agent ? customer.agent.name : ''}}</td>
@@ -135,11 +151,12 @@
                         <td><a href="tel:{{customer.mobile_number}}">{{customer.mobile_number}}</a></td>
                         <!-- <td>{{customer.email}}</td> -->
                         <td>{{customer.item ? customer.item.name : ''}}</td>
-
                         <td align="right" [hidden]="printing">{{customer.down_payment && customer.item ? '&#8377; ' +customer.down_payment : ''}}</td>
                         <td align="right" >{{customer.total ? '&#8377; ' +customer.total : ''}}</td>
                         <td align="right" >{{customer.balance ? '&#8377; ' +customer.balance : ''}}</td>
-
+                        
+                        <td>{{customer.is_item_delivered == 1 ? 'Yes' : 'No'}}</td>
+                        <td>{{customer.item_delivery_date ? _appService.GetWordFormattedDate(customer.item_delivery_date) : ''}}</td>
                         <!-- <td>{{customer.is_agent_too == 1 ? 'Yes' : 'No'}}</td> -->
                         <!-- <td [hidden]="printing"><span [class]="customer.status === 'Active' ? 'bg-success' : 'bg-danger'">{{customer.status}}</span></td> -->
                         <td [hidden]="printing" align="center"><button class="btn btn-info btn-sm" (click)="editInstallment(customer.customer_id)">Installments</button></td>

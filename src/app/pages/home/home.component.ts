@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
         this._drawService.itemDistribution(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 // this.distribution = data.records;
                 localStorage.setItem('distribution', JSON.stringify(data));
                 this.initItemDistribution(data);
@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the item distribution information.', 'Error!');
-                console.log(error);
+                // console.log(error);
             }
         );
     }
@@ -100,20 +100,20 @@ export class HomeComponent implements OnInit {
         this._drawService.initDashboard().subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.dashboard = data;
                 localStorage.setItem('dashboard', JSON.stringify(this.dashboard));
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the item distribution information.', 'Error!');
-                console.log(error);
+                // console.log(error);
             }
         );
     }
 
     initItemDistribution(data) {
-        console.log('initItemDistribution data', data);
+        // console.log('initItemDistribution data', data);
         this.distribution = {
             regular_customer_distribution: 0,
             lucky_customer_distribution: 0

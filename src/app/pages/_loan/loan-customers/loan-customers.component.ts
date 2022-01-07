@@ -48,7 +48,7 @@ export class LoanCustomersComponent implements OnInit {
             this.id = params['type'];
             this.data.type = params['type'] || 'Saving';
             if (this.id) {
-                console.log('Edit the user account : ' + this.id);
+                // console.log('Edit the user account : ' + this.id);
                 // this.getCustomers({agent_id : this.id});
                 this.printing = true;
                 this.getCustomers({
@@ -59,7 +59,7 @@ export class LoanCustomersComponent implements OnInit {
                 });
                 // this.getItems();
             } else {
-                console.log('Get all the loan customers with saving');
+                // console.log('Get all the loan customers with saving');
                 this.getCustomers({ type: 'Saving', limit: this.limit, offset: 0, page: 1 });
             }
         });
@@ -70,22 +70,22 @@ export class LoanCustomersComponent implements OnInit {
         this._loanService.getLoanCustomers(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.customers = data.records;
                 this.pagination = data.pagination;
 
-                console.log('--------------------------------------------------------');
-                console.log('CUSTOMERS');
-                console.log(this.customers);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('CUSTOMERS');
+                // console.log(this.customers);
+                // console.log('--------------------------------------------------------');
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the customers information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('ERROR IN CUSTOMERS');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('ERROR IN CUSTOMERS');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             }
         );
     }
@@ -107,13 +107,13 @@ export class LoanCustomersComponent implements OnInit {
                 this.loading = true;
                 this._loanService.deleteLoanCustomer({ customer_id: customer.customer_id }).subscribe(
                     data => {
-                        console.log(data);
+                        // console.log(data);
                         this._appService.notify('Customer deleted successfully.', 'Success!');
                         this.loading = false;
                         // Refresh the customer list
                         this.ngOnInit();
                     }, error => {
-                        console.log(error);
+                        // console.log(error);
                         this.loading = false;
                         this._appService.notify('Sorry, we cannot process your request.', 'Error!');
                     });
@@ -122,8 +122,8 @@ export class LoanCustomersComponent implements OnInit {
     }
 
     searchCustomer() {
-        console.log('------------------------------------------------');
-        console.log('SEARCH FORM DATA');
+        // console.log('------------------------------------------------');
+        // console.log('SEARCH FORM DATA');
 
         const params: any = {};
         params.name = this.data.name && this.data.name.length ? this.data.name : undefined;
@@ -135,8 +135,8 @@ export class LoanCustomersComponent implements OnInit {
         params.limit = 10;
         params.offset = 0;
         params.page = 1;
-        console.log(params);
-        console.log('------------------------------------------------');
+        // console.log(params);
+        // console.log('------------------------------------------------');
         this.getCustomers(params);
     }
 
@@ -148,8 +148,8 @@ export class LoanCustomersComponent implements OnInit {
             this.allowed = true;
         }
 
-        console.log(this.data.amount);
-        console.log(this.selectedCustomer);
+        // console.log(this.data.amount);
+        // console.log(this.selectedCustomer);
 
         let params = {
             customer_id: this.selectedCustomer.customer_id,
@@ -160,7 +160,7 @@ export class LoanCustomersComponent implements OnInit {
             // balance: this.data.balance
         };
 
-        console.log(params);
+        // console.log(params);
 
         this.loading = true;
         this._loanService.createLoanAccount(params).subscribe(
@@ -243,7 +243,7 @@ export class LoanCustomersComponent implements OnInit {
     }
 
     pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params: any = {};
         params.limit = this.limit;
         params.offset = this.limit * (parseInt(page, 10) - 1);
@@ -267,7 +267,7 @@ export class LoanCustomersComponent implements OnInit {
                 this.ngOnInit();
             }
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             // this._appService.notify('Failed to perform operation.', 'Error!');
         });
     }

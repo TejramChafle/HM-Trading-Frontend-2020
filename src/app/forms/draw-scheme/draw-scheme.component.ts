@@ -20,10 +20,10 @@ export class DrawSchemeComponent implements OnInit {
     }
 
     addScheme() {
-        console.log('-----------------------------------------------------------------');
-        console.log('FORM DATA');
-        console.log(this.formdata);
-        console.log('-----------------------------------------------------------------');
+        // console.log('-----------------------------------------------------------------');
+        // console.log('FORM DATA');
+        // console.log(this.formdata);
+        // console.log('-----------------------------------------------------------------');
 
         if (isNaN(this.formdata.total_price) || this.formdata.total_price <= 0) {
             this.isPriceInvalid = true;
@@ -51,12 +51,12 @@ export class DrawSchemeComponent implements OnInit {
             data => {
                 this.loading = false;
                 this._appService.notify('Scheme has been added successfully.', 'Success!');
-                console.log(data);
+                // console.log(data);
                 this._activeModal.close(true);
             },
             error => {
                 this.loading = false;
-                console.log(error._body);
+                // console.log(error._body);
                 this._appService.notify('Failed to save scheme information.', 'Error!');
             });
     }

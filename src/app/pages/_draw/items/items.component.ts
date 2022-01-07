@@ -46,20 +46,32 @@ export class ItemsComponent implements OnInit {
                         return item.item_id == ditem.lucky_draw_item;
                     });
                     if (draw_item) {
-                        item.draw_item_total = draw_item.draw_item_total;
-                        item.total = parseInt(item.card_item_total) + parseInt(draw_item.draw_item_total);
+                        item.draw_item_total = draw_item.count;
+                        item.total = parseInt(item.card_item_total) + parseInt(draw_item.count);
                     } else {
                         item.total = parseInt(item.card_item_total);
                     }
+                    let free_item = data.free_item_distribution.find((fitem)=>{
+                        return item.item_id == fitem.free_item;
+                    });
+                    item.free_count = free_item ? free_item.count : null;
+                    item.total = item.free_count ? item.total + parseInt(item.free_count) : item.total;
+
+                    let item_delivered = data.items_delivered.find((delivered) => {
+                        return item.item_id == delivered.item_id;
+                    });
+                    console.log({item_delivered});
+                    item.item_delivered = item_delivered ? item_delivered.count : null;
+                    // item.total = item.item_delivered ? item.total + parseInt(item.item_delivered) : item.total;
                 });
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get items information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('ITEMS ERROR');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('ITEMS ERROR');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
@@ -90,7 +102,7 @@ export class ItemsComponent implements OnInit {
     }
 
     pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params = {
             limit: this.limit,
             offset: this.limit * (parseInt(page, 10) - 1),
@@ -103,12 +115,12 @@ export class ItemsComponent implements OnInit {
         const modalRef = this._modalService.open(ItemComponent, { size: 'lg' });
         modalRef.componentInstance.formdata = item || {};
         modalRef.result.then((data) => {
-            console.log('_modalService data : ', data);
+            // console.log('_modalService data : ', data);
             if (data) {
                 this.ngOnInit();
             }
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             // this._appService.notify('Failed to perform operation.', 'Error!');
         });
     }
@@ -119,7 +131,7 @@ export class ItemsComponent implements OnInit {
         this._drawService.itemDistribution(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.distribution = data.records;
                 this.distribution.forEach((item)=>{
                     let draw_item = data.lucky_customer_distribution.find((ditem)=>{
@@ -134,7 +146,7 @@ export class ItemsComponent implements OnInit {
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the item distribution information.', 'Error!');
-                console.log(error);
+                // console.log(error);
             }
         );
     }

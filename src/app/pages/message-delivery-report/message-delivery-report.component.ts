@@ -35,20 +35,20 @@ export class MessageDeliveryReportComponent implements OnInit {
     this._drawService.smsReport(params).subscribe(
       data => {
         this.loading = false;
-        console.log('-------------------------------------------------------');
-        console.log('SMS REPORT');
-        console.log(data);
-        console.log(data.total);
-        console.log(data.messages);
+        // console.log('-------------------------------------------------------');
+        // console.log('SMS REPORT');
+        // console.log(data);
+        // console.log(data.total);
+        // console.log(data.messages);
         this.deliveries = data.messages;
         this.pagination.size = data.total;
         this.pagination.limit = data.limit;
-        console.log('this.pagination', this.pagination);
-        console.log('-------------------------------------------------------');
+        // console.log('this.pagination', this.pagination);
+        // console.log('-------------------------------------------------------');
       },
       error => {
         this.loading = false;
-        console.log(error);
+        // console.log(error);
         this._appService.notify('Oops! Unable to get sms report information', 'Error!');
       });
   }
@@ -58,27 +58,27 @@ export class MessageDeliveryReportComponent implements OnInit {
     this._drawService.smsCredit().subscribe(
       data => {
         this.loading = false;
-        console.log('-------------------------------------------------------');
-        console.log('SMS CREDIT');
-        console.log(data);
-        console.log(data.balance.sms);
+        // console.log('-------------------------------------------------------');
+        // console.log('SMS CREDIT');
+        // console.log(data);
+        // console.log(data.balance.sms);
         this.smsbalance = data.balance.sms;
-        console.log('-------------------------------------------------------');
+        // console.log('-------------------------------------------------------');
       },
       error => {
         this.loading = false;
-        console.log(error);
+        // console.log(error);
         this._appService.notify('Oops! Unable to get installment information', 'Error!');
       });
   }
 
   pageChange(page) {
-    console.log(page);
+    // console.log(page);
     const params: any = {};
     params.limit = this.limit;
     params.start = this.limit * (parseInt(page, 10) - 1);
     this.pagination.page = page;
-    console.log(params);
+    // console.log(params);
     this.smsReport(params);
   }
 

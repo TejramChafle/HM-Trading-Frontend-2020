@@ -10,6 +10,6 @@ export class PrintFooterComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
-        console.log('PRINT FOOTER');
+        // console.log('PRINT FOOTER');
     }
 }

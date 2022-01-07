@@ -54,7 +54,7 @@ export class PaymentsComponent implements OnInit {
         this._drawService.getPayments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.payments = data.records;
                 this.pagination = data.pagination;
                 this.getItems();
@@ -62,10 +62,10 @@ export class PaymentsComponent implements OnInit {
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get payments information');
-                console.log('--------------------------------------------------------');
-                console.log('ERROR IN PAYMENTS SERVICE RESPONSE');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('ERROR IN PAYMENTS SERVICE RESPONSE');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
@@ -78,23 +78,23 @@ export class PaymentsComponent implements OnInit {
         this._drawService.getItems({ limit: 100, offset: 0, page: 1 }).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.items = data.records;
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get items information');
-                console.log(error);
+                // console.log(error);
             });
     }
 
 
     print(params, receipt, isPrint: Boolean) {
 
-        console.log('---------------------------------------------------------');
-        console.log('PRINT RECEIPT');
-        console.log(receipt);
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
+        // console.log('PRINT RECEIPT');
+        // console.log(receipt);
+        // console.log('---------------------------------------------------------');
 
         let count: any;
         count = params.length;
@@ -122,10 +122,10 @@ export class PaymentsComponent implements OnInit {
 
 
     printReady(receipt, isPrint: Boolean): void {
-        console.log('---------------------------------------------------------');
-        console.log('PRINT RECEIPT');
-        console.log(receipt);
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
+        // console.log('PRINT RECEIPT');
+        // console.log(receipt);
+        // console.log('---------------------------------------------------------');
 
         let params = [];
         let customers = [];
@@ -133,10 +133,10 @@ export class PaymentsComponent implements OnInit {
         let input = [];
         let total = 0;
 
-        console.log('---------------------------------------------------------');
-        console.log('PRINT installments');
-        console.log(installments);
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
+        // console.log('PRINT installments');
+        // console.log(installments);
+        // console.log('---------------------------------------------------------');
 
         // Get the items if not available
         if (!this.items) {
@@ -153,10 +153,10 @@ export class PaymentsComponent implements OnInit {
             });
 
             if (!customers.includes(element.customer_id)) {
-                console.log('---------------------------------------------------------');
-                console.log('PRINT records');
-                console.log(records);
-                console.log('---------------------------------------------------------');
+                // console.log('---------------------------------------------------------');
+                // console.log('PRINT records');
+                // console.log(records);
+                // console.log('---------------------------------------------------------');
 
                 records.forEach(record => {
                     const par = {
@@ -177,18 +177,18 @@ export class PaymentsComponent implements OnInit {
                     installments: installments
                 });
 
-                console.log('---------------------------------------------------------');
-                console.log('PRINT installments of ' + element.customer_id);
-                console.log(installments);
-                console.log('---------------------------------------------------------');
+                // console.log('---------------------------------------------------------');
+                // console.log('PRINT installments of ' + element.customer_id);
+                // console.log(installments);
+                // console.log('---------------------------------------------------------');
 
                 customers.push(element.customer_id);
                 installments = [];
 
-                console.log('---------------------------------------------------------');
-                console.log('PRINT customers');
-                console.log(customers);
-                console.log('---------------------------------------------------------');
+                // console.log('---------------------------------------------------------');
+                // console.log('PRINT customers');
+                // console.log(customers);
+                // console.log('---------------------------------------------------------');
             }
 
         });
@@ -198,8 +198,8 @@ export class PaymentsComponent implements OnInit {
 
 
     searchTransactions() {
-        console.log('------------------------------------------------');
-        console.log('SEARCH FORM DATA');
+        // console.log('------------------------------------------------');
+        // console.log('SEARCH FORM DATA');
 
         const params: any = {};
 
@@ -215,14 +215,14 @@ export class PaymentsComponent implements OnInit {
         params.offset = 0;
         params.page = 1;
 
-        console.log(params);
-        console.log('------------------------------------------------');
+        // console.log(params);
+        // console.log('------------------------------------------------');
         this.getPayments(params);
     }
 
 
     pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params: any = {};
         params.limit = this.limit;
         params.offset = this.limit * (parseInt(page, 10) - 1);

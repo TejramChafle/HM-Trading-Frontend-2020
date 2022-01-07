@@ -53,7 +53,7 @@ export class InstallmentsComponent implements OnInit {
         // Hardcoded since there is only one scheme and it's id is 1
         if (this.schemeInstallments) {
             if (this.id) {
-                console.log('Get all the customers for the agent id : ' + this.id);
+                // console.log('Get all the customers for the agent id : ' + this.id);
                 this.getInstallments({ agent_id: this.id, limit: this.limit, offset: 0, page: 1 });
 
                 // Set the flag if the records are being shown for agent id
@@ -72,7 +72,7 @@ export class InstallmentsComponent implements OnInit {
         this._drawService.getInstallments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.installments = data.records;
                 this.pagination = data.pagination;
 
@@ -98,10 +98,10 @@ export class InstallmentsComponent implements OnInit {
                     cust.balance = parseInt(cust.totalInstPrice, 10) - parseInt(cust.total, 10);
                 });
 
-                console.log('-------------------------------------------------------');
-                console.log('MODIFIED INSTALLMENTS');
-                console.log(this.installments);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('MODIFIED INSTALLMENTS');
+                // console.log(this.installments);
+                // console.log('-------------------------------------------------------');
 
                 // Fetch the list of items if missing/not loaded
                 if (!this.items || !this.items.length) {
@@ -111,7 +111,7 @@ export class InstallmentsComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information.', 'Error!');
             });
     }
@@ -127,13 +127,13 @@ export class InstallmentsComponent implements OnInit {
         this._drawService.getItems({ limit: 100, offset: 0, page: 1 }).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.items = data.records;
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the items information.', 'Error!');
-                console.log(error);
+                // console.log(error);
             });
     }
 
@@ -154,13 +154,13 @@ export class InstallmentsComponent implements OnInit {
         localStorage.setItem('printContent', JSON.stringify(params));
         localStorage.setItem('isAgent', '1');
 
-        console.log('PRINT PAGE INFO -----------------------------------------------------------------')
-        console.log('count : ', this.count.toString());
-        console.log('agent : ', this._appService.agent);
-        console.log('total : ', total_paid.toString());
-        console.log('receipt : ', data);
-        console.log('content : ', params);
-        console.log('---------------------------------------------------------------------------------')
+        // console.log('PRINT PAGE INFO -----------------------------------------------------------------')
+        // console.log('count : ', this.count.toString());
+        // console.log('agent : ', this._appService.agent);
+        // console.log('total : ', total_paid.toString());
+        // console.log('receipt : ', data);
+        // console.log('content : ', params);
+        // console.log('---------------------------------------------------------------------------------')
 
         // this.router.navigate(['print']);
         const print = new PrintComponent(this._appService, this._modalService);
@@ -191,7 +191,6 @@ export class InstallmentsComponent implements OnInit {
         try {
             this.installments.forEach((element) => {
                 if (element.checked) {
-
                     if (element.nextInstAmt > element.installment_price) {
                         let nextInstAmt = element.nextInstAmt;
                         let temp = [];
@@ -281,35 +280,33 @@ export class InstallmentsComponent implements OnInit {
             return false;
         }
 
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
         console.log('Customers selected');
         console.log(params);
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
 
         // this.print(params, 34, total);
 
         this.loading = true;
-        this._drawService.addInstallment(params).subscribe(
-            data => {
-                this.loading = false;
-                console.log(data);
-                this.selectCustomer = false;
-                this.ngOnInit();
-                // Print the recently added installments
-                // this.printPaidInstallments(insta_params, data);
-                this.print(params, data, total);
-            },
-            error => {
-                this.loading = false;
-                console.log(error);
-                this._appService.notify('Oops! Unable to get installment information.', 'Error!');
-            });
+        this._drawService.addInstallment(params).subscribe(data => {
+            this.loading = false;
+            // console.log(data);
+            this.selectCustomer = false;
+            this.ngOnInit();
+            // Print the recently added installments
+            // this.printPaidInstallments(insta_params, data);
+            this.print(params, data, total);
+        }, error => {
+            this.loading = false;
+            // console.log(error);
+            this._appService.notify('Oops! Unable to get installment information.', 'Error!');
+        });
     }
 
 
     searchCustomer() {
-        console.log('------------------------------------------------');
-        console.log('SEARCH FORM DATA');
+        // console.log('------------------------------------------------');
+        // console.log('SEARCH FORM DATA');
 
         const params: any = {};
 
@@ -326,8 +323,8 @@ export class InstallmentsComponent implements OnInit {
             params.agent_id = this.id;
         }
 
-        console.log(params);
-        console.log('------------------------------------------------');
+        // console.log(params);
+        // console.log('------------------------------------------------');
         this.getInstallments(params);
     }
 
@@ -335,10 +332,10 @@ export class InstallmentsComponent implements OnInit {
 
     printPaidInstallments(params, receipt) {
 
-        console.log('-------------------------------------------------');
-        console.log('Inside print paid intallments');
-        console.log(params);
-        console.log('-------------------------------------------------');
+        // console.log('-------------------------------------------------');
+        // console.log('Inside print paid intallments');
+        // console.log(params);
+        // console.log('-------------------------------------------------');
 
         this._drawService.getInstallmentsOfSelectedCustomers(params).subscribe(
             data => {
@@ -346,7 +343,7 @@ export class InstallmentsComponent implements OnInit {
                 // Refresh the installments
                 this.ngOnInit();
 
-                console.log(data);
+                // console.log(data);
                 this.installments = data;
 
                 if (this.showingForAgent) {
@@ -371,10 +368,10 @@ export class InstallmentsComponent implements OnInit {
                     cust.balance = parseInt(cust.totalInstPrice, 10) - parseInt(cust.total, 10);
                 });
 
-                console.log('-------------------------------------------------------');
-                console.log('MODIFIED INSTALLMENTS FOR PRINT');
-                console.log(data);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('MODIFIED INSTALLMENTS FOR PRINT');
+                // console.log(data);
+                // console.log('-------------------------------------------------------');
 
                 this.count = data.length;
                 if (this.id && this._appService.agent) {
@@ -392,7 +389,7 @@ export class InstallmentsComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information.', 'Error!');
             });
     }
@@ -412,12 +409,12 @@ export class InstallmentsComponent implements OnInit {
         this._drawService.getSchemeInstallments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.schemeInstallments = data;
-                console.log('-------------------------------------------------------');
-                console.log('SCHEME INSTALLMENTS');
-                console.log(data);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('SCHEME INSTALLMENTS');
+                // console.log(data);
+                // console.log('-------------------------------------------------------');
 
                 // GET INSTALLMENTS
                 if (this.id) {
@@ -429,7 +426,7 @@ export class InstallmentsComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information.', 'Error!');
             });
     }
@@ -442,7 +439,7 @@ export class InstallmentsComponent implements OnInit {
 
 
     pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params: any = {};
         params.limit = this.limit;
         params.offset = this.limit * (parseInt(page, 10) - 1);

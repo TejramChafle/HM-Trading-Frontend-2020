@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'print-header',
@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class PrintHeaderComponent implements OnInit {
-
+    @Input() title: string; 
     constructor() { }
 
     ngOnInit() {
-        console.log('PRINT HEADER');
+        // console.log('PRINT ', this.title);
     }
 }

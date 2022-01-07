@@ -24,6 +24,7 @@
                     <th>Agent</th>
                     <th>Address</th>
                     <th>Phone Number</th>
+                    <th>Free Item</th>
                     <!-- <th>Email</th> -->
                     <!-- <th>Status</th> -->
                     <!-- <th>Customers</th>
@@ -43,7 +44,7 @@
                     <td><a href="tel:{{agent.mobile_number}}">{{agent.mobile_number}}</a></td>
                     <!-- <td>{{agent.email}}</td> -->
                     <!-- <td><span [class]="agent.status === 'Active' ? 'bg-success' : 'bg-danger'">{{agent.status}}</span></td> -->
-
+                    <td>{{agent.freeItem ? agent.freeItem.name : ''}}</td>
                     <td  align="center"><button class="btn btn-secondary btn-sm" (click)="viewCustomers(agent)" > <span class="glyphicon glyphicon-user"></span> Customers</button></td>
                     <td  align="center"><button class="btn btn-primary btn-sm" (click)="viewInstallments(agent)" > <span class="glyphicon glyphicon-user"></span> Installments</button></td>
                     <td  align="center"><button class="btn btn-secondary btn-sm" (click)="viewPayment(agent)" > <!-- <b>&#8377;</b> --> Payments</button></td>

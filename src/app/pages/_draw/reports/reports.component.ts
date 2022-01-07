@@ -56,21 +56,21 @@ export class ReportsComponent implements OnInit {
         this._drawService.getPendingInstallments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.customers = data;
 
-                console.log('--------------------------------------------------------');
-                console.log('STATISTICS');
-                console.log(this.customers);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('STATISTICS');
+                // console.log(this.customers);
+                // console.log('--------------------------------------------------------');
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the reports information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('ERROR IN STATISTICS');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('ERROR IN STATISTICS');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
@@ -79,16 +79,16 @@ export class ReportsComponent implements OnInit {
         this._drawService.getSchemeInstallments(1).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.schemeInstallments = data;
-                console.log('-------------------------------------------------------');
-                console.log('SCHEME INSTALLMENTS');
-                console.log(this.schemeInstallments);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('SCHEME INSTALLMENTS');
+                // console.log(this.schemeInstallments);
+                // console.log('-------------------------------------------------------');
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information', 'Error!');
             });
     }
@@ -98,16 +98,16 @@ export class ReportsComponent implements OnInit {
         this._drawService.smsCredit().subscribe(
             data => {
                 this.loading = false;
-                console.log('-------------------------------------------------------');
-                console.log('SMS CREDIT');
-                console.log(data);
-                console.log(data.balance.sms);
+                // console.log('-------------------------------------------------------');
+                // console.log('SMS CREDIT');
+                // console.log(data);
+                // console.log(data.balance.sms);
                 this.smsbalance = data.balance.sms;
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information', 'Error!');
             });
     }
@@ -117,20 +117,20 @@ export class ReportsComponent implements OnInit {
         this._drawService.smsReport(params).subscribe(
             data => {
                 this.loading = false;
-                console.log('-------------------------------------------------------');
-                console.log('SMS REPORT');
-                console.log(data);
-                console.log(data.total);
-                console.log(data.messages);
+                // console.log('-------------------------------------------------------');
+                // console.log('SMS REPORT');
+                // console.log(data);
+                // console.log(data.total);
+                // console.log(data.messages);
                 this.deliveries = data.messages;
                 this.pagination.size = data.total;
                 this.pagination.limit = data.limit;
-                console.log('this.pagination', this.pagination);
-                console.log('-------------------------------------------------------');
+                // console.log('this.pagination', this.pagination);
+                // console.log('-------------------------------------------------------');
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get sms report information', 'Error!');
             });
     }
@@ -143,25 +143,25 @@ export class ReportsComponent implements OnInit {
         this._drawService.sendNotification({ scheme_installment_id: this.formdata.scheme_installment_id }).subscribe(
             data => {
                 this.loading = false;
-                console.log('-------------------------------------------------------');
-                console.log('SEND NOTIFICATION');
-                console.log(data);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('SEND NOTIFICATION');
+                // console.log(data);
+                // console.log('-------------------------------------------------------');
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get sms report information', 'Error!');
             });
     }
 
     pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params: any = {};
         params.limit = this.limit;
         params.start = this.limit * (parseInt(page, 10) - 1);
         this.pagination.page = page;
-        console.log(params);
+        // console.log(params);
         this.smsReport(params);
     }
 

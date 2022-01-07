@@ -43,7 +43,7 @@ export class PendingInstallmentsComponent implements OnInit {
 		this._loanService.getPendingLoanInstallmentCustomers(params).subscribe(
 			data => {
 				this.loading = false;
-				console.log(data);
+				// console.log(data);
 				// this.customers = data.records;
 				this.pagination = data.pagination;
 				this.customers = [];
@@ -56,26 +56,26 @@ export class PendingInstallmentsComponent implements OnInit {
 					this.customers.push(customer);
 				});
 
-				console.log('--------------------------------------------------------');
-				console.log('Pending Loan Installment CUSTOMERS');
-				console.log(this.customers);
-				console.log('--------------------------------------------------------');
+				// console.log('--------------------------------------------------------');
+				// console.log('Pending Loan Installment CUSTOMERS');
+				// console.log(this.customers);
+				// console.log('--------------------------------------------------------');
 				
 			},
 			error => {
 				this.loading = false;
 				// this._appService.notify('Oops! Unable to get the customers information.', 'Error!');
-				console.log('--------------------------------------------------------');
-				console.log('ERROR IN CUSTOMERS');
-				console.log(error);
-				console.log('--------------------------------------------------------');
+				// console.log('--------------------------------------------------------');
+				// console.log('ERROR IN CUSTOMERS');
+				// console.log(error);
+				// console.log('--------------------------------------------------------');
 			}
 		);
 	}
 
 
 	pageChange(page) {
-        console.log(page);
+        // console.log(page);
         const params: any = {};
         params.limit = this.limit;
         params.offset = this.limit * (parseInt(page, 10) - 1);
@@ -92,7 +92,7 @@ export class PendingInstallmentsComponent implements OnInit {
 	}
 	
 	sendNotification(customer?:any) {
-		console.log(customer);
+		// console.log(customer);
 	}
 }
 

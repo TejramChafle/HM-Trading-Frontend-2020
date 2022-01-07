@@ -35,16 +35,16 @@ export class SchemeComponent implements OnInit {
         this._drawService.getSchemes().subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.schemes = data;
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get scheme information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('scheme ERROR');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('scheme ERROR');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 
@@ -84,12 +84,12 @@ export class SchemeComponent implements OnInit {
         this._drawService.getSchemeInstallments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.installments = data;
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information.', 'Error!');
             });
     }
@@ -109,12 +109,12 @@ export class SchemeComponent implements OnInit {
         const modalRef = this._modalService.open(DrawSchemeComponent, { size: 'lg' });
         modalRef.componentInstance.formdata = scheme || {};
         modalRef.result.then((data) => {
-            console.log('_modalService data : ', data);
+            // console.log('_modalService data : ', data);
             if (data) {
                 this.ngOnInit();
             }
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             // this._appService.notify('Failed to perform operation.', 'Error!');
         });
     }

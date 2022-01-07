@@ -1,0 +1,24 @@
+<div class="print-page" id="print-page">
+    <print-header [title]="'LUCKY DRAW WINNERS'"></print-header><br>
+    <br>
+    <div id="item_table">
+        <table class="table table-bordered table-hover table-striped" >
+            <tr>
+                <th>#</th>
+                <th>Month</th>
+                <th>Winner</th>
+                <th>Card</th>
+                <th>Item</th>
+            </tr>
+            <tr *ngFor="let draw of customers; let index = index">
+                <td>{{index + 1}}</td>
+                <td>{{draw.lucky_draw_month}}</td>
+                <td>{{draw.name}}</td>
+                <td>{{draw.card_number}}</td>
+                <td>{{draw.lucky_draw_item.name}}</td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <print-footer></print-footer>
+</div>

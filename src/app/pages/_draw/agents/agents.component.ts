@@ -48,20 +48,23 @@ export class AgentsComponent implements OnInit {
         this._drawService.getCustomers(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.agents = data.records;
                 this.pagination = data.pagination;
                 if (this.id && !this._appService.agent) {
                     this._appService.agent = JSON.parse(localStorage.getItem('_appService.agent'));
                 }
+                this.agents.map((agent) => {
+                    agent.freeItem = this._appService.items.find(item => item.item_id === agent.free_item);
+                });
             },
             error => {
                 this.loading = false;
                 this._appService.notify('Oops! Unable to get the agent information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('AGENTS');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('AGENTS');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             }
         );
     }
@@ -145,7 +148,7 @@ export class AgentsComponent implements OnInit {
                 this.ngOnInit();
             }
         }).catch((error) => {
-            console.log(error);
+            // console.log(error);
             // this._appService.notify('Failed to perform operation.', 'Error!');
         });
     }

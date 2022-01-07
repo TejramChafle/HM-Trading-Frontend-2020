@@ -28,7 +28,7 @@ export class DrawCustomersPrintComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.customers = JSON.parse(localStorage.getItem('printContent'));
-        console.log(this.customers);
+        // console.log(this.customers);
 
         this.count = localStorage.getItem('count');
         // this.totalPaid = localStorage.getItem('totalPaid');
@@ -75,10 +75,10 @@ export class DrawCustomersPrintComponent implements OnInit, AfterViewInit {
 
         this.totalInWords = this._appService.inWords(this.totalPaid);
         this.totalInWords = 'Rupees ' + this._appService.capitalizeFirstLetter(this.totalInWords);
-        console.log('---------------------------------------------------------------------');
-        console.log('Total Paid in numbers : ' + this.totalPaid);
-        console.log(this.totalInWords);
-        console.log('---------------------------------------------------------------------');
+        // console.log('---------------------------------------------------------------------');
+        // console.log('Total Paid in numbers : ' + this.totalPaid);
+        // console.log(this.totalInWords);
+        // console.log('---------------------------------------------------------------------');
     }
 
     ngAfterViewInit() {
@@ -114,6 +114,11 @@ export class DrawCustomersPrintComponent implements OnInit, AfterViewInit {
 
         popupWin.document.open();
         popupWin.document.write(this._appService.printContentHeader + printContents + this._appService.printContentFooter);
-        popupWin.document.close();
+        // Do not close window for mobile device and give user a chance to print manually
+        if (this._appService.innerWidth > 768) {
+            popupWin.document.close();
+        } else {
+            popupWin.document.title = 'hm-trading-draw-customers';
+        }
     }
 }

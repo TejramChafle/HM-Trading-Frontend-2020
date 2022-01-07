@@ -31,9 +31,9 @@ export class AgentComponent implements OnInit {
 
     addAgent() {
 
-        console.log('---------------------------------------------------------------');
-        console.log(this.formdata);
-        console.log('---------------------------------------------------------------');
+        // console.log('---------------------------------------------------------------');
+        // console.log(this.formdata);
+        // console.log('---------------------------------------------------------------');
 
         const phone = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
         if (this.formdata.mobile_number && !phone.test(this.formdata.mobile_number.toLowerCase())) {
@@ -57,15 +57,15 @@ export class AgentComponent implements OnInit {
         this.formdata.is_agent_too = 1;
         delete this.formdata.agent;
         delete this.formdata.item;
-        console.log('-----------------------------------------------------------------');
-        console.log('FORM DATA');
-        console.log(this.formdata);
-        console.log('-----------------------------------------------------------------');
+        // console.log('-----------------------------------------------------------------');
+        // console.log('FORM DATA');
+        // console.log(this.formdata);
+        // console.log('-----------------------------------------------------------------');
 
         this.loading = true;
         this._drawService.addCustomer(this.formdata).subscribe(
             data => {
-                console.log(data);
+                // console.log(data);
 
                 this.loading = false;
                 if (!isNaN(data) && !this.formdata.customer_id) {
@@ -80,7 +80,7 @@ export class AgentComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error._body);
+                // console.log(error._body);
                 this._appService.notify('Unable to process your request. Something went wrong!', 'Error!');
             });
     }

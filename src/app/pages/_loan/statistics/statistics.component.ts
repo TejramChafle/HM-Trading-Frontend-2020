@@ -57,17 +57,17 @@ export class StatisticsComponent implements OnInit {
         this._loanService.getStatistics(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.calculateStatistics(data);
                 localStorage.setItem('statistics', JSON.stringify(data));
             },
             error => {
                 this.loading = false;
                 // this._appService.notify('Oops! Unable to get the statistics information.', 'Error!');
-                console.log('--------------------------------------------------------');
-                console.log('ERROR IN STATISTICS');
-                console.log(error);
-                console.log('--------------------------------------------------------');
+                // console.log('--------------------------------------------------------');
+                // console.log('ERROR IN STATISTICS');
+                // console.log(error);
+                // console.log('--------------------------------------------------------');
             });
     }
 

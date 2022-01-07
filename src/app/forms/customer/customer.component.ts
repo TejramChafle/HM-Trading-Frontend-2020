@@ -40,9 +40,9 @@ export class CustomerComponent implements OnInit {
 
     addCustomer() {
 
-        console.log('---------------------------------------------------------------');
-        console.log(this.formdata);
-        console.log('---------------------------------------------------------------');
+        // console.log('---------------------------------------------------------------');
+        // console.log(this.formdata);
+        // console.log('---------------------------------------------------------------');
 
         if (this.formdata.customer_id) {
             delete this.formdata.installment;
@@ -88,15 +88,15 @@ export class CustomerComponent implements OnInit {
             delete this.formdata.down_payment;
         }
 
-        console.log('-----------------------------------------------------------------');
-        console.log('FORM DATA');
-        console.log(this.formdata);
-        console.log('-----------------------------------------------------------------');
+        // console.log('-----------------------------------------------------------------');
+        // console.log('FORM DATA');
+        // console.log(this.formdata);
+        // console.log('-----------------------------------------------------------------');
 
         this.loading = true;
         this._drawService.addCustomer(this.formdata).subscribe(
             data => {
-                console.log(data);
+                // console.log(data);
 
                 this.loading = false;
                 if (!isNaN(data) && !this.formdata.customer_id) {
@@ -111,7 +111,7 @@ export class CustomerComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error._body);
+                // console.log(error._body);
                 this._appService.notify('Unable to process your request. Duplicate entry for card number', 'Error!');
             });
     }

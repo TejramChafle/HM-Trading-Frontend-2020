@@ -29,10 +29,15 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Exchangeable</th>
+                            <!-- <th>Exchangeable</th> -->
                             <th class="hmtrading-text-center">Card Count</th>
                             <th class="hmtrading-text-center">Draw Count</th>
+                            <th class="hmtrading-text-center">Free Count</th>
                             <th class="hmtrading-text-center">Total</th>
+                            <th class="hmtrading-text-center">Stock</th>
+                            <th class="hmtrading-text-center">Difference</th>
+                            <th class="hmtrading-text-center">Delivered</th>
+                            <th class="hmtrading-text-center">Available</th>
                             <th colspan="2" class="hmtrading-text-center">Actions</th>
                         </tr>
 
@@ -40,10 +45,15 @@
                             <td>{{index + 1}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.description}}</td>
-                            <td>{{item.is_exchangeable == 1 ? 'Yes' : 'No'}}</td>
+                            <!-- <td>{{item.is_exchangeable == 1 ? 'Yes' : 'No'}}</td> -->
                             <td class="text-center">{{item.card_item_total}}</td>
                             <td class="text-center">{{item.draw_item_total}}</td>
+                            <td class="text-center">{{item.free_count}}</td>
                             <td class="text-center">{{item.total}}</td>
+                            <td class="text-center">{{item.stock}}</td>
+                            <td class="text-center">{{item.stock - item.total}}</td>
+                            <td class="text-center">{{item.item_delivered}}</td>
+                            <td class="text-center">{{item.stock - item.item_delivered}}</td>
                             <td align="center"><button class="btn btn-info btn-sm" (click)="addItem(item)">Edit</button></td>
                             <td align="center"><button class="btn btn-danger btn-sm"(click)="deleteItem(item)">Delete</button></td>
                         </tr>

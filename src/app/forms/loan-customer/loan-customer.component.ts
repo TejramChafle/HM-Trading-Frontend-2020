@@ -39,9 +39,9 @@ export class LoanCustomerComponent implements OnInit {
 
     addCustomer() {
 
-        console.log('---------------------------------------------------------------');
-        console.log(this.formdata);
-        console.log('---------------------------------------------------------------')
+        // console.log('---------------------------------------------------------------');
+        // console.log(this.formdata);
+        // console.log('---------------------------------------------------------------')
 
         var phone = /^([0|\+[0-9]{1,5})?([7-9][0-9]{9})$/;
         if (this.formdata.phone && !phone.test(this.formdata.phone.toLowerCase())) {
@@ -77,15 +77,15 @@ export class LoanCustomerComponent implements OnInit {
             delete this.formdata.amount;
         }
 
-        console.log('-----------------------------------------------------------------');
-        console.log('FORM DATA');
-        console.log(this.formdata);
-        console.log('-----------------------------------------------------------------');
+        // console.log('-----------------------------------------------------------------');
+        // console.log('FORM DATA');
+        // console.log(this.formdata);
+        // console.log('-----------------------------------------------------------------');
 
         this.loading = true;
         this._loanService.addLoanCustomer(this.formdata).subscribe(
             data => {
-                console.log(data);
+                // console.log(data);
                 this.loading = false;
                 this._activeModal.close(true);
 
@@ -99,7 +99,7 @@ export class LoanCustomerComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error._body);
+                // console.log(error._body);
                 this._appService.notify('Oops! Something went wrong.. Unable to process your request.', 'Error!');
             });
     }
@@ -108,10 +108,10 @@ export class LoanCustomerComponent implements OnInit {
     print(customer, result) {
 
         customer['customer_id'] = result['customer_id'];
-        console.log('---------------------------------------------------------');
-        console.log('PRINT RECEIPT');
-        console.log(customer);
-        console.log('---------------------------------------------------------');
+        // console.log('---------------------------------------------------------');
+        // console.log('PRINT RECEIPT');
+        // console.log(customer);
+        // console.log('---------------------------------------------------------');
 
         let trans = {
             transaction_id: result['transaction_id'],

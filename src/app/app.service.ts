@@ -31,6 +31,7 @@ export class AppService {
 
     printContentHeader: string;
     printContentFooter: string;
+    innerWidth: number;
 
     constructor(private _http: HttpClient, private _modelService: NgbModal, private _router: Router) {
         this.printContentHeader = `
@@ -137,7 +138,10 @@ export class AppService {
                 </style>
             </head>
             <body onload='window.print();window.close()'>`;
-        this.printContentFooter = `</body></html>`;    
+        this.printContentFooter = `</body></html>`;
+        
+        // Check if items are available
+        this.items = JSON.parse(localStorage.getItem('items'));
     }
 
     login(credential): Observable<any> {

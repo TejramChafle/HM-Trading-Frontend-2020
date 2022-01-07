@@ -16,6 +16,7 @@ export class AppComponent {
         this.dashboards = ['Fataka Fund', 'Loan'];
         this._appService.isDrawDashboard = JSON.parse(localStorage.getItem('isDrawDashboard'));
         this.selectedDashboard = this._appService.isDrawDashboard ? this.dashboards[0] : this.dashboards[1];
+        this._appService.innerWidth = window.innerWidth;
     }
 
     onLogout() {

@@ -45,7 +45,7 @@ export class AddCustomerInstallmentComponent implements OnInit {
         this.sub = this.activatedRoute.params.subscribe(params => {
             this.id = +params['id'];
             if (this.id) {
-                console.log('Edit the customer installments : ' + this.id);
+                // console.log('Edit the customer installments : ' + this.id);
                 this.getInstallments({ customer_id: this.id, limit: this.limit, offset: 0, page: 1 });
             }
         });
@@ -56,7 +56,7 @@ export class AddCustomerInstallmentComponent implements OnInit {
         this._drawService.getInstallments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.customer = data.records[0];
                 this.customerInstallments = data.records[0].installment;
 
@@ -64,16 +64,16 @@ export class AddCustomerInstallmentComponent implements OnInit {
                     elemenet.edit = false;
                 });
 
-                console.log('---------------------------------------------------');
-                console.log('CUSTOMER INFO');
-                console.log(this.customer);
+                // console.log('---------------------------------------------------');
+                // console.log('CUSTOMER INFO');
+                // console.log(this.customer);
 
-                console.log('INSTALLMENT INFO');
-                console.log(this.customerInstallments);
-                console.log('---------------------------------------------------');
+                // console.log('INSTALLMENT INFO');
+                // console.log(this.customerInstallments);
+                // console.log('---------------------------------------------------');
 
                 let size = this.customerInstallments.length;
-                console.log('size :' + size);
+                // console.log('size :' + size);
                 size === 11 ? this.hasMoreInstallments = false : this.hasMoreInstallments = true;
                 this.loading = false;
                 // Hardcoded since there is only one scheme and it's id is 1
@@ -81,7 +81,7 @@ export class AddCustomerInstallmentComponent implements OnInit {
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information', 'Error!');
             });
     }
@@ -91,12 +91,12 @@ export class AddCustomerInstallmentComponent implements OnInit {
         this._drawService.getSchemeInstallments(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 this.installments = data;
-                console.log('-------------------------------------------------------');
-                console.log('SCHEME INSTALLMENTS');
-                console.log(this.installments);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('SCHEME INSTALLMENTS');
+                // console.log(this.installments);
+                // console.log('-------------------------------------------------------');
 
                 this.customer.installment_price = this.installments[this.customer.installment.length]['installment_price'];
                 this.customer.scheme_installment_id = this.installments[this.customer.installment.length]['scheme_installment_id'];
@@ -104,14 +104,14 @@ export class AddCustomerInstallmentComponent implements OnInit {
                 this.customer.installment_month = this.installments[this.customer.installment.length]['month'];
                 this.customer.fine = this.installments[this.customer.installment.length]['fine'];
 
-                console.log('-------------------------------------------------------');
-                console.log('MODIFIED CUSTOMER AFTER INSTALLMENTS');
-                console.log(this.customer);
-                console.log('-------------------------------------------------------');
+                // console.log('-------------------------------------------------------');
+                // console.log('MODIFIED CUSTOMER AFTER INSTALLMENTS');
+                // console.log(this.customer);
+                // console.log('-------------------------------------------------------');
             },
             error => {
                 this.loading = false;
-                console.log(error);
+                // console.log(error);
                 this._appService.notify('Oops! Unable to get installment information', 'Error!');
             });
     }
@@ -119,16 +119,16 @@ export class AddCustomerInstallmentComponent implements OnInit {
 
     editInstallment(installment) {
         installment.edit = true;
-        console.log('installment : ');
-        console.log(installment);
-        console.log('installment.edit : ' + installment.edit);
+        // console.log('installment : ');
+        // console.log(installment);
+        // console.log('installment.edit : ' + installment.edit);
     }
 
     saveInstallment(installment) {
         installment.edit = false;
-        console.log('installment : ');
-        console.log(installment);
-        console.log('installment.edit : ' + installment.edit);
+        // console.log('installment : ');
+        // console.log(installment);
+        // console.log('installment.edit : ' + installment.edit);
 
         const params = {
             installment_id: installment.installment_id,
@@ -141,22 +141,22 @@ export class AddCustomerInstallmentComponent implements OnInit {
         this.loading = true;
         this._drawService.updateInstallment(params).subscribe(
             data => {
-                console.log(data);
+                // console.log(data);
                 // Refresh the installment list
                 this.ngOnInit();
                 localStorage.setItem('receipt', data);
             }, err => {
                 this.loading = false;
-                console.log(err);
+                // console.log(err);
                 this._appService.notify('Oops! Something went wrong. Please contact system administrator.', 'Error!');
             });
     }
 
     cancelEditInstallment(installment) {
         installment.edit = false;
-        console.log('installment : ');
-        console.log(installment);
-        console.log('installment.edit : ' + installment.edit);
+        // console.log('installment : ');
+        // console.log(installment);
+        // console.log('installment.edit : ' + installment.edit);
     }
 
 
@@ -170,10 +170,10 @@ export class AddCustomerInstallmentComponent implements OnInit {
 
         this.customer.installment_price = parseInt(this.customer.installment_price, 10);
 
-        console.log('-------------------------------------------------');
-        console.log(this.customerInstallments);
-        console.log(this.customerInstallments[size - 1]);
-        console.log('-------------------------------------------------');
+        // console.log('-------------------------------------------------');
+        // console.log(this.customerInstallments);
+        // console.log(this.customerInstallments[size - 1]);
+        // console.log('-------------------------------------------------');
 
         if (size && this.customerInstallments[size - 1]['status'] !== 'Paid') {
             // this.warn = true;
@@ -197,9 +197,9 @@ export class AddCustomerInstallmentComponent implements OnInit {
             return false;
         } else {
 
-            console.log('INSTALLMENT FORM');
-            console.log('this.customer : ', this.customer);
-            console.log('this.data : ', this.data);
+            // console.log('INSTALLMENT FORM');
+            // console.log('this.customer : ', this.customer);
+            // console.log('this.data : ', this.data);
 
             if (this.data.amount > this.customer.installment_price) {
                 let nextInstAmt = this.data.amount;
@@ -275,22 +275,22 @@ export class AddCustomerInstallmentComponent implements OnInit {
         }
 
 
-        console.log('-------------------------------------------------');
-        console.log('Installment params');
-        console.log(params);
-        console.log('-------------------------------------------------');
+        // console.log('-------------------------------------------------');
+        // console.log('Installment params');
+        // console.log(params);
+        // console.log('-------------------------------------------------');
 
         this.loading = true;
 
         this._drawService.addInstallment(params).subscribe(
             data => {
                 this.loading = false;
-                console.log(data);
+                // console.log(data);
                 // Refresh the installment list
                 this.printBill(params, data);
             }, err => {
                 this.loading = false;
-                console.log(err);
+                // console.log(err);
                 this._appService.notify('Oops! Something went wrong. Please contact system administrator.', 'Error!');
             });
     }
